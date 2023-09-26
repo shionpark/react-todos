@@ -1,12 +1,28 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+interface IForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  password1: string;
+}
+
 function Home() {
-  const { register, handleSubmit, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
+
   const onValid = (data: any) => {
     console.log(data);
   };
-  console.log(formState.errors);
+
+  console.log(errors);
+
   return (
     <div>
       <h1>ToDos</h1>
@@ -30,6 +46,7 @@ function Home() {
           placeholder="Password1"
         />
         <button>Add</button>
+        <span>{errors?.password1?.message}</span>
       </form>
     </div>
   );
